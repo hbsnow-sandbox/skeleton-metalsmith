@@ -11,7 +11,6 @@ const jsonMetadata = require('metalsmith-json-metadata')
 const feed = require('metalsmith-feed')
 const sitemap = require('metalsmith-sitemap')
 const posthtml = require('metalsmith-posthtml')
-const moment = require('moment')
 
 const config = {
   url: 'http://example.com/'
@@ -30,7 +29,8 @@ metalsmith(__dirname)
       url: config.url,
       author: 'auhtor',
       description: 'Hello, world!'
-    }
+    },
+    moment: require('moment')
   })
   .source('src/html')
   .destination('doc')
@@ -65,8 +65,7 @@ metalsmith(__dirname)
   .use(layouts({
     engine: 'pug',
     partials: 'src/partials',
-    directory: 'src/layouts',
-    moment: moment
+    directory: 'src/layouts'
   }))
   .use(posthtml())
   .use(when(
